@@ -9,6 +9,17 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
+# Правки
+# 1) Комментарии все на русский язык
+# 2) Удобное скачивание используемых пайтон-библиотек (requirements.txt)
+# 3) Возможно стоило всё сделать в Jupyter Notebook
+# 4)  Добавить комментарии в пайтон стиле о входных аргументах функции
+# 5) Jupyter notebook (так как сохраняет графики)
+# 6) Seaborn, plotly для лучшей визуализации
+# 7) sumpy + jupyter notebook
+# 8) удалить из гита всё кроме скриптов, README.md и, возможно, датасета ( добавить в гитигнор)
+# 9) заполни файлик README.md
+
 df = pd.read_csv('Student_Performance.csv')
 # Change 'Yes' and 'No' in data -> '1' and '0'
 encoder = LabelEncoder()
@@ -83,30 +94,36 @@ with open('resultes' , 'a') as file:
     file.write('\n')
 
 
-#Grafics
-#
-# # Make predictions
-# y_pred_train = X_train_scaled.dot(theta)
-# y_pred_test = X_test_scaled.dot(theta)
-#
-# # Calculate metrics
-# train_mse = mean_squared_error(y_train, y_pred_train)
-# test_mse = mean_squared_error(y_test, y_pred_test)
-# train_r2 = r2_score(y_train, y_pred_train)
-# test_r2 = r2_score(y_test, y_pred_test)
-#
-# print(f"Training MSE: {train_mse:.2f}, R²: {train_r2:.2f}")
-# print(f"Test MSE: {test_mse:.2f}, R²: {test_r2:.2f}")
-#
-# # Plot cost history
-# plt.figure(figsize=(10, 6))
-# plt.plot(CostHistory)
-# plt.xlabel('Iterations')
-# plt.ylabel('Cost')
-# plt.title('Gradient Descent: Cost Reduction Over Iterations')
-# plt.show()
-#
-# # Feature importance analysis
-# feature_names = ['Intercept'] + list(X.columns)
-# for name, coef in zip(feature_names, theta):
-#     print(f"{name}: {coef:.4f}")
+# Grafics
+
+# Make predictions
+y_pred_train = X_train_scaled.dot(theta)
+y_pred_test = X_test_scaled.dot(theta)
+
+# Calculate metrics
+train_mse = mean_squared_error(y_train, y_pred_train)
+test_mse = mean_squared_error(y_test, y_pred_test)
+train_r2 = r2_score(y_train, y_pred_train)
+test_r2 = r2_score(y_test, y_pred_test)
+
+print(f"Training MSE: {train_mse:.2f}, R²: {train_r2:.2f}")
+print(f"Test MSE: {test_mse:.2f}, R²: {test_r2:.2f}")
+
+#  X @ coef_gradient = Y_gradient -> compare with Y_true (mse)
+#  X @ coef_scikit = Y_scikit -> compare with Y_true (mse)
+
+print(np.min(CostHistory), test_mse)
+# Plot cost history
+plt.figure(figsize=(10, 6))
+plt.plot(CostHistory, label = 'gradient')
+# plt.plot( test_mse, label = 'scikit')
+plt.xlabel('Iterations')
+plt.ylabel('Cost')
+plt.legend()
+plt.title('Gradient Descent: Cost Reduction Over Iterations')
+plt.show()
+
+# Feature importance analysis
+feature_names = ['Intercept'] + list(X.columns)
+for name, coef in zip(feature_names, theta):
+    print(f"{name}: {coef:.4f}")
